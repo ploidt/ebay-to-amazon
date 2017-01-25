@@ -1,6 +1,7 @@
 library(rvest)
 library(magrittr)
 require(RSelenium)
+library(beepr)
 
 setwd("/Users/ploid/GitHub/ebay-to-amazon/data")
 
@@ -12,6 +13,7 @@ start.page <- 1
 end.page <- 3
 
 for(i in seq(start.page, end.page, 1)){
+  print(i)
   file.name <- paste("ebay2amazon_",i,".csv", sep = "")
   remDr$navigate(paste(web.page, "&_pgn=", i ,sep = ""))
   
@@ -36,7 +38,8 @@ for(i in seq(start.page, end.page, 1)){
   }
   
   temp <- get.all.info(web.html)
-  d = rbind(d,temp)
+  d <- rbind(d,temp)
+  d <- unique(d)
   
   get.upc <- function(link){
     remDr$navigate(link)
@@ -89,4 +92,4 @@ for(i in seq(start.page, end.page, 1)){
 
 remDr$close()
 d %>% View()
-
+beep()

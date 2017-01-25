@@ -1,3 +1,5 @@
+library(beepr)
+
 setwd("/Users/ploid/GitHub/ebay-to-amazon/data")
 rm(dataset)
 file.list <- list.files()
@@ -17,3 +19,4 @@ for(file in file.list) {
 dataset <- dataset[complete.cases(dataset),]
 dataset <- dataset[ , !(names(dataset) %in% "X")]
 write.csv(dataset, file = "ebay_combined.csv")
+beep()
